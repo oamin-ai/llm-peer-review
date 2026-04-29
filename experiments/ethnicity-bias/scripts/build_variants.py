@@ -12,7 +12,7 @@ import pandas as pd
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 PAPERS_DIR = "data/processed_papers"
-AUTHORS_XLSX = "data/metadata/ethnicity.xlsx"
+AUTHORS_XLSX = "data/metadata/authors.xlsx"
 OUT_DIR = "experiments/ethnicity-bias/variants"
 
 # If you only want some groups, set e.g. {"Germany", "France"} else None
