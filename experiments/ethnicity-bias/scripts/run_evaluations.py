@@ -356,7 +356,7 @@ def main():
         "variant_path"
     ]].copy()
 
-    out_xlsx = Path(OUT_RESULTS_DIR) / "Experiment1_OpenRouter_MultiModel.xlsx"
+    out_xlsx = OUT_RESULTS_DIR / "exp1_ethnicity_binary.xlsx"
     with pd.ExcelWriter(out_xlsx, engine="openpyxl") as writer:
         out_long.to_excel(writer, sheet_name="Scores_long", index=False)
 
