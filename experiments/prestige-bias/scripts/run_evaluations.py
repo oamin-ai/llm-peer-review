@@ -67,19 +67,23 @@ MODEL_SPECS = {
 # ---------------- PROMPT ----------------
 PROMPT_TEMPLATE = """In your capacity as a reviewer for one of the most prestigious and highly selective top-5 computer vision, machine learning and artificial intelligence journals (such as IEEE Transactions on Pattern Analysis and Machine Intelligence, International Journal of Computer Vision, or Pattern Recognition), please determine whether you would recommend this submission for publication using the following 2-point scale:
 
-1 = Definite Reject: Fatal flaws in theory/methodology, insufficient contribution, or serious validity concerns that make the paper unsuitable for the journal,
-2 = Accept as Is: Exceptional contribution ready for immediate publication
+0 = Definite Reject: Fatal flaws in theory/methodology, insufficient contribution, or serious validity concerns that make the paper unsuitable for the journal,
+1 = Accept as Is: Exceptional contribution ready for immediate publication
 
 STRICT OUTPUT RULE:
-Return EXACTLY ONE character: 1 or 2.
+Return EXACTLY ONE character: 0 or 1.
 Do NOT output any other text, words, punctuation, or newlines.
 
 SUBMISSION:
 {paper_text}
 """
 
-STRICT_SCORE_RE = re.compile(r"\b([1-2])\b")
+STRICT_SCORE_RE = re.compile(r"\b([0-1])\b")
 
+# ---------------- SYSTEM MESSAGE ----------------
+# Defines the exact output format enforced on the model.
+# Must match both the prompt and regex (0 = Reject, 1 = Accept).
+SYSTEM_MESSAGE = "Return exactly one digit: 0 or 1."
 
 def safe_name(s: str) -> str:
     return re.sub(r"[^A-Za-z0-9_-]+", "_", str(s)).strip("_")[:80]
@@ -135,7 +139,7 @@ def call_openrouter_once(prompt: str, model_id: str, temperature: float, max_tok
     payload = {
         "model": model_id,
         "messages": [
-            {"role": "system", "content": "Return exactly one digit: 1 or 2."},
+            {"role": "system", "content": SYSTEM_MESSAGE},
             {"role": "user", "content": prompt}
         ],
         "temperature": temperature,
