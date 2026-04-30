@@ -81,8 +81,6 @@ SUBMISSION:
 STRICT_SCORE_RE = re.compile(r"\b([0-1])\b")
 
 # ---------------- SYSTEM MESSAGE ----------------
-# Defines the exact output format enforced on the model.
-# Must match both the prompt and regex (0 = Reject, 1 = Accept).
 SYSTEM_MESSAGE = "Return exactly one digit: 0 or 1."
 
 def safe_name(s: str) -> str:
