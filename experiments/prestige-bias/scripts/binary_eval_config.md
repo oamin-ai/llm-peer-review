@@ -6,11 +6,11 @@
 # ---------------- PROMPT ----------------
 PROMPT_TEMPLATE = """In your capacity as a reviewer for one of the most prestigious and highly selective top-5 computer vision, machine learning and artificial intelligence journals (such as IEEE Transactions on Pattern Analysis and Machine Intelligence, International Journal of Computer Vision, or Pattern Recognition), please determine whether you would recommend this submission for publication using the following 2-point scale:
 
-1 = Definite Reject: Fatal flaws in theory/methodology, insufficient contribution, or serious validity concerns that make the paper unsuitable for the journal,
-2 = Accept as Is: Exceptional contribution ready for immediate publication
+0 = Definite Reject: Fatal flaws in theory/methodology, insufficient contribution, or serious validity concerns that make the paper unsuitable for the journal,
+1 = Accept as Is: Exceptional contribution ready for immediate publication
 
 STRICT OUTPUT RULE:
-Return EXACTLY ONE character: 1 or 2.
+Return EXACTLY ONE character: 0 or 1.
 Do NOT output any other text, words, punctuation, or newlines.
 
 SUBMISSION:
@@ -18,10 +18,10 @@ SUBMISSION:
 """
 
 # ---------------- REGEX ----------------
-STRICT_SCORE_RE = re.compile(r"\b([1-2])\b")
+STRICT_SCORE_RE = re.compile(r"\b([0-1])\b")
 
 # ---------------- SYSTEM MESSAGE ----------------
-SYSTEM_MESSAGE = "Return exactly one digit: 1 or 2."
+SYSTEM_MESSAGE = "Return exactly one digit: 0 or 1."
 
 # ---------------- OUTPUT FILE ----------------
 # Choose based on experiment:
